@@ -1,0 +1,42 @@
+local MarketplaceService = game:GetService("MarketplaceService")
+
+local function getGameName(gameId)
+    local success, result = pcall(function()
+        local info = MarketplaceService:GetProductInfo(gameId)
+        return info.Name
+    end)
+    
+    if success then
+        return result
+    else
+        return nil
+    end
+end
+
+local gameList = {
+    [7436755782] = "4c4184fbd445363d2f93154c5d291359",
+    [9186719164] = "b3227dfea3088c1846e74be615524317"
+}
+
+if gameList[game.GameId] then
+    game.StarterGui:SetCore(
+        "SendNotification",
+        {
+            Title = "Wishub Loaded!",
+            Text = getGameName(game.PlaceId),
+            Icon = "rbxassetid://73739494324230",
+            Duration = 5
+        }
+    )
+    loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/"..gameList[game.GameId]..".lua"))()
+else
+    game.StarterGui:SetCore(
+        "SendNotification",
+        {
+            Title = "Wishub Error",
+            Text = "Unsupported Map Detected",
+            Icon = "rbxassetid://99764942615873",
+            Duration = 5
+        }
+    )
+end
