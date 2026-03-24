@@ -14,7 +14,7 @@ local function getGameName(gameId)
 end
 
 local gameList = {
-    [7436755782] = "6342275ce31a5182f597ba91339c8ba6",
+    [7436755782] = "4c4184fbd445363d2f93154c5d291359",
     [9186719164] = "2515e3dad2f3e91569c3cce99b1071de",
     [5750914919] = "e2bb1385f54ffd9b6a05b8717644cd39",
     [6701277882] = "fefcfe7c0205de93465af63fb76013e1"
