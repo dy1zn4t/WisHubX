@@ -50,6 +50,13 @@ if gameList[game.GameId] then
             Duration = 5
         }
     )
+    if not script_key then
+        local auth = loadstring(game:HttpGet("https://raw.githubusercontent.com/dy1zn4t/WisHubX/refs/heads/main/auth"))()
+        auth(gameList[game.GameId])
+        repeat task.wait() until auth.validated
+        local auth_status = auth(gameList[game.GameId])
+        repeat task.wait() until auth_status.validated
+    end
     loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/"..gameList[game.GameId]..".lua"))()
 else
     game.StarterGui:SetCore(
@@ -61,6 +68,5 @@ else
             Duration = 5
         }
     )
-    task.wait(3)
     customKick("Unsupported Place")
 end
