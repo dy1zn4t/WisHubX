@@ -53,7 +53,7 @@ if gameList[game.GameId] then
     local script_id = gameList[game.GameId]
     if script_id == "4c4184fbd445363d2f93154c5d291359" then
         local IsInTradeWorld = require(game:GetService("ReplicatedStorage").Modules.IsInTradeWorld)
-        if IsInTradeWorld then script_id = "a7839a300cc470d27c258b5ac89780fa" end
+        if IsInTradeWorld or is_market then script_id = "a7839a300cc470d27c258b5ac89780fa" end
     end
     if not script_key then
         local auth = loadstring(game:HttpGet("https://raw.githubusercontent.com/dy1zn4t/WisHubX/refs/heads/main/auth"))()
