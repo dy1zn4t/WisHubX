@@ -50,12 +50,17 @@ if gameList[game.GameId] then
             Duration = 5
         }
     )
+    local script_id = gameList[game.GameId]
+    if script_id == "4c4184fbd445363d2f93154c5d291359" then
+        local IsInTradeWorld = require(game:GetService("ReplicatedStorage").Modules.IsInTradeWorld)
+        if IsInTradeWorld then script_id = "a7839a300cc470d27c258b5ac89780fa" end
+    end
     if not script_key then
         local auth = loadstring(game:HttpGet("https://raw.githubusercontent.com/dy1zn4t/WisHubX/refs/heads/main/auth"))()
-        local auth_status = auth(gameList[game.GameId])
+        local auth_status = auth(script_id)
         repeat task.wait() until auth_status.validated
     end
-    loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/"..gameList[game.GameId]..".lua"))()
+    loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/"..script_id..".lua"))()
 else
     game.StarterGui:SetCore(
         "SendNotification",
