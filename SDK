@@ -1,0 +1,319 @@
+                              --                                                                    --
+                             --[[                                                                  ]]--
+                            local                                                                  b=----
+                           getgenv()                                                               [".gg/w"
+                          .."ishubx"                                                              .." The "
+                          .."Best sc"                                                            .."ripthub"
+                         .." in the "                                                          .."world!!!"
+                        ];do local sx                                                        =function(s, v)
+                       return s+v-s*v                                                        end;end; do end
+                      do end do end do                                                      end;local a, b---
+                     =getgenv()[ "wis" ]                                                    ,getgenv()[ "hub" ]
+                    local _,_ function s                       ()                           return "wishubx" end;
+                   local def_timeout=30                       --[[                        ]];local wis_base_url=
+                    "https://api.wishub"                    .."cloud"                    local H=game:GetService
+                     "HttpService";local vr                 ={};--[[__                  ]];vr.__index=vr;do---
+                      end;local wiscln={};                --[[wishubx]]               wiscln.__index=wiscln;
+                      local a=getgenv()[" "             .."discord.gg/w"             .."ishubx"];local c='';
+                       local function dc(o)            local co; if type            (o) == "table" then co={}
+                        for k, v in next, ori,         nil do co[dc(k)]=dc         (v) end;setmetatable(co
+                         ,dc(getmetatable(ori))      )else co = o end;return       co;end local tms="KEY_"
+                         local ke_v=tms.."VALID"    local ke_e= tms.."EXPIRED"    local ke_b=tms.."BANNED"
+                          local ke_hl=tms.."HWI"   .."D_LOCKED";local ke_i=tms   .."INVALID";local ke_si
+                           ="SCRIPT_ID_INCORRE"  .."CT";local ke_sl="SCRIPT_ID"  .."_INVALID";local _=""
+                            local function je(     j) return H:JSONEncode(j) end  local function jd(j)
+                             return H:JSONEncode (j) end local   k = http_request  or request; do end
+                             local _ = {{""}}  local function   _(x) math.floor(x)  end;local _={""}
+                              local function un(ex) return os     .date("%Y-%m-%d" .."%H:%M:%S",ex)
+                               end;do end do end do end do            end;local _={} do end do end;
+                               local z="";local _={{{{}}}}            local z= 1;  local _={{{}}}
+                                do end do end do  end do                end do end  do end do end
+                                 local _={{{ }}} do end                  do end  local _={{{{}}}}
+                                  local z = 178776 --[[                  --]] do end do end do
+                                      end local z=17                          local z = 6769
+                                         --[[=========                        =========]]--
+                                             --[[======                      ======]]--
+                                                 --[[===                    ==]]--
+                                                    --[[==                ==]]--
+                                                        --=              =--
+
+
+local WisHubSDK = {
+    BASE_URL = wis_base_url,
+    DEFAULT_TIMEOUT = def_timeout,
+    KEY_VALID = ke_v,
+    KEY_EXPIRED = ke_e,
+    KEY_BANNED = ke_b,
+    KEY_HWID_LOCKED = ke_hl,
+    KEY_INCORRECT = "KEY_INCORRECT",
+    KEY_INVALID = ke_i,
+    SCRIPT_ID_INCORRECT = ke_si,
+    SCRIPT_ID_INVALID = ke_sl,
+}
+function vr.new(data)
+    local self = setmetatable({}, vr)
+    self._data = data or {}
+    self.status = self._data.status or nil
+    self.message = self._data.message or nil
+    self.scriptId = self._data.script_id
+    self.scriptName = self._data.script_name
+    self.scriptVersion = self._data.script_version
+    self.projectName = self._data.project_name
+    self.expiresAt = self._data.expires_at
+    self.secondsRemaining = self._data.seconds_remaining
+    self.daysRemaining = self._data.days_remaining
+    return self
+end
+function vr:isValid()
+    return self.status == WisHubSDK.KEY_VALID
+end
+
+function vr:isExpired()
+    return self.status == WisHubSDK.KEY_EXPIRED
+end
+
+function vr:isBanned()
+    return self.status == WisHubSDK.KEY_BANNED
+end
+
+function vr:isHwidLocked()
+    return self.status == WisHubSDK.KEY_HWID_LOCKED
+end
+
+function vr:isKeyIncorrect()
+    return self.status == WisHubSDK.KEY_INCORRECT
+end
+
+function vr:isKeyInvalid()
+    return self.status == WisHubSDK.KEY_INVALID
+end
+
+function vr:isScriptIdIncorrect()
+    return self.status == WisHubSDK.SCRIPT_ID_INCORRECT
+end
+
+function vr:isScriptIdInvalid()
+    return self.status == WisHubSDK.SCRIPT_ID_INVALID
+end
+
+function vr:hasError()
+    return self.status ~= WisHubSDK.KEY_VALID
+end
+
+function vr:getMessage()
+    return self.message
+end
+
+function vr:getStatus()
+    return self.status or "unknown"
+end
+
+function vr:getTimeRemaining()
+    if self.secondsRemaining then
+        return {
+            seconds = self.secondsRemaining,
+            minutes = math.floor(self.secondsRemaining / 60),
+            hours = math.floor(self.secondsRemaining / 3600),
+            days = self.daysRemaining or math.floor(self.secondsRemaining / 86400),
+        }
+    end
+    return nil
+end
+
+function vr:getExpirationTime()
+    if self.expiresAt then
+        return un(self.expiresAt)
+    end
+    return nil
+end
+
+function vr:getExpirationTimestamp()
+    return self.expiresAt
+end
+
+function vr:getScriptInfo()
+    return {
+        id = self.scriptId,
+        name = self.scriptName,
+        version = self.scriptVersion,
+        projectName = self.projectName,
+    }
+end
+
+function vr:getRawData()
+    return deepCopy(self._data)
+end
+
+function vr:toString()
+    if self:isValid() then
+        local timeStr = ""
+        if self.daysRemaining then
+            timeStr = string.format(" - %d days remaining", self.daysRemaining)
+        end
+        return string.format(
+            "[WisHub] KEY_VALID - %s (v%d)%s",
+            self.scriptName or "Unknown",
+            self.scriptVersion or 0,
+            timeStr
+        )
+    else
+        return string.format("[WisHub] %s - %s", self.status or "UNKNOWN", self.message or "No message")
+    end
+end
+
+local wiscln = {}
+wiscln.__index = wiscln
+
+function wiscln.new(config)
+    local self = setmetatable({}, wiscln)
+
+    self.config = {
+        scriptId = config.scriptId or config.script_id or "",
+        apiKey = config.apiKey or config.api_key or "",
+        hwid = config.hwid or nil,
+        onResult = config.onResult or nil,
+    }
+
+    self._cachedResult = nil
+    self._isVerifying = false
+    self._lastVerification = nil
+
+    if not self.config.scriptId or #self.config.scriptId == 0 then
+        warn("[WisHub] Warning: scriptId is not set")
+    end
+
+    return self
+end
+
+function wiscln:setHWID(hwid)
+    self.config.hwid = hwid
+end
+
+function wiscln:getHWID()
+    return self.config.hwid
+end
+
+function wiscln:setAPIKey(apiKey)
+    self.config.apiKey = apiKey
+end
+
+function wiscln:getAPIKey()
+    return self.config.apiKey
+end
+
+function wiscln:verifyKey(userKey, optionalHWID)
+    if self._isVerifying then
+        warn("[WisHub] Verification already in progress")
+        return nil
+    end
+
+    self._isVerifying = true
+
+    local payload = {
+        script_id = self.config.scriptId,
+        script_key = userKey or self.config.apiKey,
+        hwid = optionalHWID or self.config.hwid,
+    }
+
+    local success, response = pcall(function()
+        return HttpService:RequestAsync({
+            Url = WisHubSDK.BASE_URL .. "/api/verify-key",
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json",
+                ["User-Agent"] = "WisHub-SDK/1.0",
+            },
+            Body = je(payload),
+            TimeoutSec = WisHubSDK.DEFAULT_TIMEOUT,
+        })
+    end)
+
+    self._isVerifying = false
+
+    if not success then
+        warn("[WisHub] Network error:", tostring(response))
+        return nil
+    end
+
+    if not response.Success then
+        warn("[WisHub] HTTP error:", response.StatusCode)
+        return nil
+    end
+
+    local decodeSuccess, data = pcall(function()
+        return jd(response.Body)
+    end)
+
+    if not decodeSuccess then
+        warn("[WisHub] Failed to decode response")
+        return nil
+    end
+
+    local result = vr.new(data)
+    self._cachedResult = result
+    self._lastVerification = os.time()
+
+    if self.config.onResult then
+        self.config.onResult(result)
+    end
+
+    return result
+end
+
+function wiscln:isVerified()
+    if not self._cachedResult then
+        return false
+    end
+    return self._cachedResult:isValid()
+end
+
+function wiscln:getCachedResult()
+    return self._cachedResult
+end
+
+function wiscln:clearCache()
+    self._cachedResult = nil
+    self._lastVerification = nil
+end
+
+function wiscln:getLastVerificationTime()
+    if self._lastVerification then
+        return un(self._lastVerification)
+    end
+    return nil
+end
+
+function wiscln:refresh()
+    if not self._cachedResult then
+        warn("[WisHub] No cached result to refresh")
+        return nil
+    end
+    return self:verifyKey(self.config.apiKey, self.config.hwid)
+end
+
+function wiscln:destroy()
+    self._cachedResult = nil
+    self.config = {}
+end
+
+function WisHubSDK.new(config)
+    return wiscln.new(config)
+end
+
+function WisHubSDK.verify(scriptId, scriptKey, hwid)
+    local client = wiscln.new({
+        scriptId = scriptId,
+        apiKey = scriptKey,
+        hwid = hwid,
+    })
+
+    local result = client:verifyKey()
+    client:destroy()
+
+    return result
+end
+
+WisHubSDK.Client = wiscln
+WisHubSDK.vr = vr
+
+return WisHubSDK
